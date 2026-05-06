@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pastel Rhythm Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Background Stage -->
+        <div id="stage-background">
+            <div class="cyber-grid"></div>
+            <div class="stage-lights">
+                <div class="light light-left"></div>
+                <div class="light light-right"></div>
+            </div>
+        </div>
+
+        <!-- UI -->
+        <div id="ui-layer">
+            <div class="score-box">
+                <div class="label">SCORE</div>
+                <div id="score">0</div>
+            </div>
+            <div class="gauge-container">
+                <div class="label">CLEAR GAUGE</div>
+                <div class="gauge-bar-bg">
+                    <div class="clear-line"></div>
+                    <div id="gauge-bar-fill"></div>
+                </div>
+            </div>
+            <div class="combo-box">
+                <div id="combo">0</div>
+                <div class="label">COMBO</div>
+            </div>
+        </div>
+        <div id="pause-btn">
+            <div class="pause-bar"></div>
+            <div class="pause-bar"></div>
+        </div>
+
+        <!-- Rhythm Game Area -->
+        <div id="play-area">
+            <div class="lanes">
+                <div class="lane" id="lane-0"></div>
+                <div class="lane" id="lane-1"></div>
+                <div class="lane" id="lane-2"></div>
+            </div>
+            <div id="judgment-line">
+                <div class="target" id="target-0"><div class="arrow arrow-left"></div></div>
+                <div class="target" id="target-1"><div class="arrow arrow-down"></div></div>
+                <div class="target" id="target-2"><div class="arrow arrow-right"></div></div>
+            </div>
+            <div id="notes-container"></div>
+            <div id="judgment-text"></div>
+        </div>
+
+        <!-- Fever Overlay (Non-blocking) -->
+        <div id="fever-overlay">
+            <div class="fever-text">FEVER TIME! 2x SCORE</div>
+        </div>
+
+        <!-- Pause Overlay -->
+        <div id="pause-overlay">
+            <h2>SYSTEM PAUSED</h2>
+            <button class="pause-menu-btn" id="resume-btn">[ RESUME ]</button>
+            <button class="pause-menu-btn" id="retry-btn">[ RESTART ]</button>
+            <button class="pause-menu-btn" id="home-btn">[ ABORT / HOME ]</button>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen">
+            <h1>MISSION CLEARED</h1>
+            <p>FINAL SCORE: <span id="final-score">0</span></p>
+            <p>MAX COMBO: <span id="final-combo">0</span></p>
+            <button id="restart-btn">[ RESTART ]</button>
+        </div>
+
+        <!-- Start Overlay -->
+        <div id="start-overlay">
+            <h1 id="game-title">CYBER RHYTHM</h1>
+            <p>PC: 左、下、右 矢印キー<br>Mobile: ボタンをタップ</p>
+            <div class="upload-container">
+                <p style="color: var(--primary-color); margin-bottom: 5px; font-weight: bold;">[ SELECT DEFAULT TRACK ]</p>
+                <select id="default-song-select" style="margin-bottom: 15px; width: 100%; padding: 8px; background: rgba(0,0,0,0.6); color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 5px; font-family: 'Courier New', Courier, monospace;">
+                    <option value="">-- DEFAULT TRACK --</option>
+                    <option value="Cheery_Cakewalk.mp3">Cheery Cakewalk</option>
+                    <option value="うきわに揺られ.mp3">うきわに揺られ</option>
+                    <option value="グルーヴコースター.mp3">グルーヴコースター</option>
+                    <option value="ポーカーフェイス.mp3">ポーカーフェイス</option>
+                    <option value="望郷性シグナル.mp3">望郷性シグナル</option>
+                    <option value="電気街の悪魔.mp3">電気街の悪魔</option>
+                    <option value="風来旅行.mp3">風来旅行</option>
+                </select>
+                <p style="color: var(--primary-color); margin-bottom: 5px; font-weight: bold;">[ OR UPLOAD LOCAL FILE ]</p>
+                <label for="music-upload" class="upload-btn">[ CHOOSE MP3 ]</label>
+                <input type="file" id="music-upload" accept="audio/*" style="display: none;">
+                <div id="selected-song-name">NO TRACK SELECTED</div>
+            </div>
+            <div class="difficulty-selector">
+                <label><input type="radio" name="difficulty" value="easy" checked> <span>EASY</span></label>
+                <label><input type="radio" name="difficulty" value="normal"> <span>NORMAL</span></label>
+                <label><input type="radio" name="difficulty" value="hard"> <span>HARD</span></label>
+                <label id="hell-label" style="display: none;"><input type="radio" name="difficulty" value="hell"> <span class="hell-span">HELL</span></label>
+            </div>
+            <button id="start-btn">INITIALIZE</button>
+            <div id="ranking-board">
+                <h2>[ SYSTEM RECORDS ]</h2>
+                <ul id="ranking-list">
+                    <li>NO DATA FOUND</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div id="mobile-controls">
+            <button class="control-btn" id="btn-left"><div class="arrow arrow-left"></div></button>
+            <button class="control-btn" id="btn-down"><div class="arrow arrow-down"></div></button>
+            <button class="control-btn" id="btn-right"><div class="arrow arrow-right"></div></button>
+        </div>
+    </div>
+    <audio id="bgm" src="music.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
