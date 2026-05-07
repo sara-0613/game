@@ -664,3 +664,61 @@ body {
         height: 80%;
     }
 }
+
+/* HELL Unlock Glitch Effect */
+.hell-unlocked #game-container {
+    animation: glitch-shake 0.1s infinite;
+}
+
+.hell-unlocked #game-title {
+    animation: glitch-color 0.05s infinite;
+    color: #ff0000 !important;
+    text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff !important;
+}
+
+.hell-unlocked .cyber-grid {
+    background-image: 
+        linear-gradient(rgba(255, 0, 0, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.5) 1px, transparent 1px);
+    animation: moveGrid 0.5s linear infinite; /* Faster grid */
+}
+
+@keyframes glitch-shake {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-color {
+    0% { text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff; }
+    50% { text-shadow: -2px 2px #ff0000, 2px -2px #00ff00; transform: skew(10deg); }
+    100% { text-shadow: 2px -2px #0000ff, -2px 2px #ffff00; }
+}
+
+/* Red vignette overlay */
+#hell-vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    background: radial-gradient(circle, transparent 40%, rgba(255, 0, 0, 0.4) 100%);
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.hell-unlocked #hell-vignette {
+    opacity: 1;
+    animation: flicker-red 0.2s infinite;
+}
+
+@keyframes flicker-red {
+    0% { opacity: 0.4; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.4; }
+}

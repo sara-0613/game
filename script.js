@@ -555,10 +555,29 @@ window.addEventListener('keydown', (e) => {
                 const hellLabel = document.getElementById('hell-label');
                 if (hellLabel) {
                     hellLabel.style.display = 'inline-block';
-                    document.getElementById('game-container').style.boxShadow = '0 0 50px red';
+                    document.body.classList.add('hell-unlocked'); // 画面崩れエフェクト開始
+                    
+                    // グリッチノイズ再生
+                    const duration = 0.5;
+                    const noiseNodes = [];
+                    for(let i=0; i<5; i++) {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = i % 2 === 0 ? 'sawtooth' : 'square';
+                        osc.frequency.setValueAtTime(Math.random() * 500 + 50, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(Math.random() * 2000 + 500, audioCtx.currentTime + duration);
+                        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + duration);
+                    }
+
                     setTimeout(() => {
+                        document.body.classList.remove('hell-unlocked');
                         document.getElementById('game-container').style.boxShadow = '0 0 30px rgba(0, 255, 255, 0.2)';
-                    }, 500);
+                    }, 2000); // 2秒間地獄を味わわせる
                 }
                 secretIndex = 0;
             }
